@@ -1,5 +1,6 @@
 #include "includes.h"
 #include "lib.h"
+#include "plan.h"
 
 const string INPUTDIR = "inputs/";
 const string OUTPUTDIR = "outputs/";
@@ -7,7 +8,6 @@ const vector<string> fnames = {"a_example","b_read_on","c_incunabula","d_tough_c
 
 int main()
 {
-    cout << "here" << endl;
     for(const string file : fnames)
     {
         cout << "solving " << file << "\n";
@@ -18,13 +18,14 @@ int main()
         vector<int> bookScores;
         vector<lib> libs;
         read(input, nBooks, nLibs, nDays, bookScores, libs);
-        /*int limit;
-        //vector<int> pizza = read(input, limit);
+        
+        vector<plan> result = solve_bf(nBooks, nLibs, nDays, bookScores, libs);
 
-        vector<int> sol = solve_sort(limit, pizza);
+        if( verify(nBooks, nLibs, nDays, bookScores, libs, result)  )
+        {
+            print(output, result);
+        }
 
-        if( verify(limit, pizza, sol) )
-            print(output, sol);*/
     }
     return 0;
 }

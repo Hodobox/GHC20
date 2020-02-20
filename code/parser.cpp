@@ -3,6 +3,7 @@
 
 #include "includes.h"
 #include "lib.h"
+#include "plan.h"
 
 void read(string fname, int &nBooks, int &nLibs, int &nDays, vector<int> &bookScores, vector<lib> &libs)
 {
@@ -23,15 +24,20 @@ void read(string fname, int &nBooks, int &nLibs, int &nDays, vector<int> &bookSc
     in.close();
 }
 
-void print(string fname, vector<int> res)
+void print(string fname, vector<plan> &res)
 {
     ofstream out(fname);
     out << res.size() << "\n";
     for(int i=0;i<res.size();++i)
     {
-        if(i) out << " ";
-        out << res[i];
-    } out << "\n";
+        out << res[i].id << " " << res[i].scannedBooks.size() << "\n";
+        for(int k=0;k<res[i].scannedBooks.size();++k)
+        {
+            if(k) out << " ";
+            out << res[i].scannedBooks[k];
+        }
+        out << "\n";
+    } 
 }
 
 #endif

@@ -2,25 +2,13 @@
 #define SOLVER_INCLUDE
 
 #include "includes.h"
+#include "plan.h"
+#include "lib.h"
 
-vector<int> solve_sort(int limit, vector<int> &pizza)
+vector<plan> solve_bf(int nBooks, int nLibs, int nDays, vector<int> &bookScores, vector<lib> &libraries)
 {
-    vector<int> res;
-    vector<pair<int,int> > v;
-    for(int i=0;i<pizza.size();++i) v.push_back({pizza[i],i});
-    sort(v.begin(),v.end(),greater<pair<int,int>>());
-    long long sum = 0;
-    for(auto r : v)
-    {
-        int x = r.first;
-        if(sum+x<=limit)
-        {
-            sum += x;
-            res.push_back(r.second);
-        }
-    }
+    vector<plan> res;
 
-    cout << "solve_sort: " << sum << "\n";
     return res;
 }
 
