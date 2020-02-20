@@ -155,11 +155,11 @@ vector<plan> solve_E(int nBooks, int nLibs, int nDays, vector<int> &bookScores, 
     }
     return res;
 }
-/*
+
 
 int zarobim(set<int> &scanned, int dayStartBuilding, int nDays, vector<int> &bookScores, lib library)
 {
-    sort(library.scannedBooks.begin(), library.scannedBooks.end(),[&](int a,int b) {
+    sort(library.booksIds.begin(), library.booksIds.end(),[&](int a,int b) {
             if( isIn(a,scanned) != isIn(b,scanned) )
                 return isIn(a,scanned) < isIn(b,scanned);
             return bookScores[a]>bookScores[b];
@@ -169,11 +169,11 @@ int zarobim(set<int> &scanned, int dayStartBuilding, int nDays, vector<int> &boo
     int curday = day;
     int score = 0;
     int scannedToday = 0;
-    for(int b : library.scannedBooks)
+    for(int b : library.booksIds)
     {
         if(curday >= nDays) break;
         scannedToday++;
-        if(scannedToday == libraries[i].booksPerDay)
+        if(scannedToday == library.booksPerDay)
         {
             scannedToday = 0;
             curday++;
@@ -182,7 +182,7 @@ int zarobim(set<int> &scanned, int dayStartBuilding, int nDays, vector<int> &boo
         if(isIn(b,scanned) == false)
             score += bookScores[b];
 
-        scanned.insert(b);
+        //scanned.insert(b);
     }
 
     return score;
@@ -190,12 +190,38 @@ int zarobim(set<int> &scanned, int dayStartBuilding, int nDays, vector<int> &boo
 
 vector<plan> solve_F(int nBooks, int nLibs, int nDays, vector<int> &bookScores, vector<lib> &Libraries)
 {
+    vector<lib> libraries = Libraries;
     int day = 0;
-    set<int> used;
+    set<int> scanned;
+    vector<plan> res;
     while(day<nDays)
     {
+        if(day%100==0) cout << day << "/" << nDays << "\n";
+        if(libraries.empty()) break;
+        int kto=0;
+        double best = -1;
 
-        int best;
+        for(int i=0;i<libraries.size();++i)
+        {
+            //if(day + libraries[i].signupDays + 1 >= nDays) continue;
+            double cur = zarobim(scanned,day,nDays,bookScores,libraries[i]);
+            //cout << cur << "?\n";
+            double val = cur / libraries[i].signupDays;
+
+            if(val>best)
+            {
+                best = val;
+                kto = i;
+            }
+        }
+
+        if(best == -1) break;
+
+        //cout << "$ " << zarobim(scanned, day, nDays, bookScores, libraries[kto]) << " in " << libraries[kto].signupDays << "\n";
+
+        res.push_back(plan());
+        res.back().id = libraries[kto].id;
+        res.back().scannedBooks = libraries[kto].booksIds;
 
         sort(res.back().scannedBooks.begin(), res.back().scannedBooks.end(),[&](int a,int b) {
             if( isIn(a,scanned) != isIn(b,scanned) )
@@ -204,14 +230,14 @@ vector<plan> solve_F(int nBooks, int nLibs, int nDays, vector<int> &bookScores, 
         });
 
         // we figure out what we actually scanned from this library
-        day += libraries[i].signupDays;
+        day += libraries[kto].signupDays;
         int curday = day;
         int scannedToday = 0;
         for(int b : res.back().scannedBooks)
         {
             if(curday >= nDays) break;
             scannedToday++;
-            if(scannedToday == libraries[i].booksPerDay)
+            if(scannedToday == libraries[kto].booksPerDay)
             {
                 scannedToday = 0;
                 curday++;
@@ -219,8 +245,13 @@ vector<plan> solve_F(int nBooks, int nLibs, int nDays, vector<int> &bookScores, 
 
             scanned.insert(b);
         }
+
+        swap(libraries[kto],libraries.back());
+        libraries.pop_back();
     }
+
+    return res;
 }
-*/
+
 
 #endif

@@ -24,6 +24,7 @@ bool verify(int nbooks, int nlibs, int ndays, vector<int> &scores, vector<lib> &
             cout << "WA " << library.id << " signed up twice\n";
             return false;
         }
+        signedUpLibs.insert(library.id);
 
         day += libraryData[library.id].signupDays;
         int curday = day;
