@@ -3,7 +3,7 @@
 #include "includes.h"
 #include "plan.h"
 
-bool verify(int nbooks, int nlibs, int ndays, vector<int> &scores, vector<lib> &libraryData, vector<plan> &result)
+bool verify(int nbooks, int nlibs, int ndays, vector<int> &scores, vector<lib> &libraryData, vector<plan> &result, int *scoreReceived = NULL)
 {
     set<int> signedUpLibs, scannedBooks;
     int duplicates = 0;
@@ -57,7 +57,10 @@ bool verify(int nbooks, int nlibs, int ndays, vector<int> &scores, vector<lib> &
     for(int x : scannedBooks)
         res += scores[x];
 
-    cout << "OK score = " << res << "\n";
+    if(scoreReceived != NULL)
+        (*scoreReceived) = res;
+    else
+        cout << "OK score = " << res << "\n";
     return true;
 }
 

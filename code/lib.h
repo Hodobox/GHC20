@@ -8,6 +8,7 @@ struct lib {
     int signupDays;
     int booksPerDay;
     vector<int> booksIds; // possibly set
+    int id;
 };
 
 #endif

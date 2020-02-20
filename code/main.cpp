@@ -21,7 +21,7 @@ int main()
 
         cout << "solving...\n";
         
-        vector<plan> result = solve_bf(nBooks, nLibs, nDays, bookScores, libs);
+        vector<plan> result = solve_E(nBooks, nLibs, nDays, bookScores, libs);
 
         cout << "verifying...\n";
 
