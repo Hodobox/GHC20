@@ -18,8 +18,12 @@ int main()
         vector<int> bookScores;
         vector<lib> libs;
         read(input, nBooks, nLibs, nDays, bookScores, libs);
+
+        cout << "solving...\n";
         
         vector<plan> result = solve_bf(nBooks, nLibs, nDays, bookScores, libs);
+
+        cout << "verifying...\n";
 
         if( verify(nBooks, nLibs, nDays, bookScores, libs, result)  )
         {

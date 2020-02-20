@@ -20,6 +20,7 @@ void read(string fname, int &nBooks, int &nLibs, int &nDays, vector<int> &bookSc
             in >> x;
             l.booksIds.push_back(x);
         }
+        libs.push_back(l);
     }
     in.close();
 }
