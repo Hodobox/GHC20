@@ -2,14 +2,14 @@
 
 const string INPUTDIR = "inputs/";
 const string OUTPUTDIR = "outputs/";
-const vector<string> fnames = {"a_example","b_small","c_medium","d_quite_big","e_also_big"};
+const vector<string> fnames = {"a_example","b_read_on","c_incunabula","d_tough_choices","e_so_many_books","f_libraries_of_the_world"};
 
 int main()
 {
     for(const string file : fnames)
     {
         cout << "solving " << file << "\n";
-        string input = INPUTDIR + file + ".in";
+        string input = INPUTDIR + file + ".txt";
         string output = OUTPUTDIR + file + ".out";
 
         int limit;
